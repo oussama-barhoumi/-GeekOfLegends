@@ -1,34 +1,61 @@
-class Characters{
-    constructor(name , hp , attack){
-        this.name = name ; 
-        this.hp = hp ;
-        this.attack = attack;
-        this.stance ="normal"
-    }
-    Setstance(stance){
-        this.stance = stance;
-    }
-    getattack(){
-        if (this.stance ==="attack")
-            return this.attack * 1.5;
-        else if ( this.stance ==="defense")
-            return this.attack * 0.5;
-        else 
-            return this.attack;
-    }
-    getdamage(damage){
-        if (this.stance ==="defense") damage = damage * 0.5;
-        this.hp -= damage;
-        console.log(`${this.name} received ${damage} damage, remaining HP: ${this.hp}`);
-    }
-}let hero = new Characters("oussama", 100, 20);
+class Character {
+  constructor(name, hp, attack) {
+    this.name = name;
+    this.hp = hp;
+    this.attack = attack;
+    this.stance = "normal";
+  }
 
-console.log("Normal attack:", hero.getattack());
+  setStance(stance) {
+    this.stance = stance;
+  }
 
-hero.Setstance("attack");
-console.log("Attack stance:", hero.getattack());
+  getAttack() {
+    if (this.stance === "attack") return this.attack * 1.4;
+    if (this.stance === "defense") return this.attack * 0.5;
+    return this.attack;
+  }
 
-hero.Setstance("defense");
-hero.getdamage(40);
-console.log("HP after defense:", hero.hp);
+  getDamage(dmg) {
+    if (this.stance === "defense") dmg *= 0.5;
+    this.hp -= dmg;
+    console.log(this.name + " loses " + dmg + " HP");
+  }
+}
+class Warrior extends Character {
+  constructor(name, hp, attack) {
+    super(name, hp, attack);
+    this.rage = 0;
+  }
+
+  attackBoss(boss) {
+    this.rage++;
+    let dmg = this.getAttack();
+
+    if (this.rage === 4) {
+      dmg *= 1.25;
+      console.log(this.name + " enters RAGE MODE ");
+      this.rage = 0;
+    }
+
+    boss.hp -= dmg;
+    console.log(this.name + " DRAB " + boss.name + " BI " + dmg);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
