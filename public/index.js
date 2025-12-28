@@ -67,7 +67,7 @@ class Mage extends Character {
     this.mana -= 2;
     let dmg = this.getAttack();
     boss.hp -= dmg;
-    console.log(this.name + "  tfal  3la " + boss.name + " ou daye3 lih " + dmg);
+    console.log(this.name + "  rma ta3wida  3la " + boss.name + " ou daye3 lih " + dmg);
   }
 }
 
@@ -117,9 +117,9 @@ class Boss {
 
 
 const riddles = [
-  { q: "Once spoken, I no longer exist. Who am I?", a: "silence" },
-  { q: "What does Math.floor(1.3 * 10)?", a: "13" },
-  { q: "What is the index of first 'i' in this question?", a: "18" }
+  { q: "man yaskono lbahra wa youhiboho nas?", a: "spongebob" },
+  { q: "chal ktsawi (4+4*4+2)?", a: "22" },
+  { q: "chanahowa ahsan nhar fsimana?", a: "sabet "  }
 ];
 
 function askRiddle() {
@@ -152,56 +152,125 @@ console.log("👹 Boss Appears: " + boss.name);
 
 let heroes = [
   new Warrior("oussama", 150, 25),
-  new Mage("hfsa", 120, 30),
-  new Archer("chourouk", 130, 22)
+  new Mage("anas", 120, 30),
+  new Archer("hamza", 130, 22)
 ];
 
 
+// while (boss.hp > 0 && heroes.some(h => h.isAlive())) {
+
+//   console.log(" 9ital agian");
+
+
+//   heroes.forEach(hero => {
+//     if (!hero.isAlive()) return;
+
+//     let choice = prompt(
+//       hero.name + " choose stance: attack / defense / normal"
+//     ).toLowerCase();
+
+//     if (["attack", "defense", "normal"].includes(choice)) {
+//       hero.setStance(choice);
+//     } else {
+//       hero.setStance("normal");
+//     }
+//   });
+
+
+//   heroes.forEach(hero => {
+//     if (hero.isAlive() && boss.hp > 0) {
+//       hero.attackBoss(boss);
+//     }
+//   });
+
+
+//   if (boss.needRiddle()) {
+//     console.log(" wa9et lhasem");
+//     if (!askRiddle()) {
+//       console.log(" Heroes failed mkl5hine");
+//       break;
+//     } else {
+//       console.log("booss skipana");
+//       break;
+//     }
+//   }
+
+  
+
+
+//   if (boss.hp > 0) {
+//     boss.attackHeroes(heroes);
+//   }
+
+//   console.log("👹 Boss HP:", boss.hp);
+//   console.log(" 9awiso mra ou5hra ==========");
+// }
+
+// console.log("🏁 GAME END");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function showStatus(heroes, boss) {
+  console.log("===== STATUS =====");
+  heroes.forEach(h => {
+    console.log(h.name + " HP: " + h.hp);
+  });
+  console.log("Boss " + boss.name + " HP: " + boss.hp);
+  console.log("==================");
+}
+
 while (boss.hp > 0 && heroes.some(h => h.isAlive())) {
 
-  console.log(" 9ital agian");
-
+  console.log("⚔️ 9ital jdiiid");
 
   heroes.forEach(hero => {
     if (!hero.isAlive()) return;
 
     let choice = prompt(
-      hero.name + " choose stance: attack / defense / normal"
+      hero.name + " attack / defense / normal"
     ).toLowerCase();
 
-    if (["attack", "defense", "normal"].includes(choice)) {
-      hero.setStance(choice);
-    } else {
-      hero.setStance("normal");
-    }
+    hero.setStance(["attack", "defense", "normal"].includes(choice)
+      ? choice
+      : "normal");
   });
-
 
   heroes.forEach(hero => {
     if (hero.isAlive() && boss.hp > 0) {
       hero.attackBoss(boss);
+      boss.hp = Math.max(0, boss.hp);
     }
   });
 
-
   if (boss.needRiddle()) {
-    console.log(" wa9et lhasem");
+    console.log(" wa9et loghez!");
     if (!askRiddle()) {
-      console.log(" Heroes failed mkl5hine");
+      console.log(" khsarto lma3raka");
       break;
     } else {
-      console.log("booss skipana");
+      console.log(" rb7to!");
       break;
     }
   }
-
 
   if (boss.hp > 0) {
     boss.attackHeroes(heroes);
   }
 
-  console.log("👹 Boss HP:", boss.hp);
-  console.log(" 9awiso mra ou5hra ==========");
+  showStatus(heroes, boss);
 }
 
-console.log("🏁 GAME END");
+console.log(" GAME END tan tran tan tan tan");
